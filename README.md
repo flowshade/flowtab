@@ -13,5 +13,5 @@ See the time and date, top sites, and use light theme or dark theme to greet you
 </p>
 
 ## To Do List
-[] Settings in Popup
-[] Wallpaper Support
+- [ ] Settings in Popup
+- [ ] Wallpaper Support
