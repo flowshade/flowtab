@@ -1,0 +1,15 @@
+#absolutely-insane {
+    position: absolute;
+    left: 2rem;
+    bottom: 2rem;
+}
+
+#absolutely-insane #time {
+    font-size: 80px;
+}
+
+#actually-insane {
+    position: absolute;
+    right: 2rem;
+    bottom: 2rem;
+}

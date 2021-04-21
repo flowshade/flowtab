@@ -1,13 +1,17 @@
 {
-  "name": "TabFlow",
-  "description": "A beautiful and elegant new tab for your browser.",
-  "version": "1.0",
-  "manifest_version": 3,
-  "chrome_url_overrides" : {
-    "newtab": "pages/dashboard.html"
-  },
-  "background": {
-    "service_worker": "js/background.js"
-  },
-  "permissions": ["storage"]
+    "name": "TabFlow",
+    "description": "A beautiful and elegant new tab for your browser.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "chrome_url_overrides": {
+        "newtab": "pages/dashboard.html"
+    },
+    "action": {
+        "default_popup": "pages/redirect.html"
+    },
+    "icons": { "16": "assets/logo.png", "48": "assets/logo.png", "128": "assets/logo.png" },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "permissions": ["storage", "topSites"]
 }

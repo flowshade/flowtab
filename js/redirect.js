@@ -1,0 +1,1 @@
+chrome.tabs.create({ active: true, url: "chrome://newtab" });
