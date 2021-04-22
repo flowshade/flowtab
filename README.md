@@ -16,4 +16,4 @@ See the time and date, top sites, and use light theme or dark theme to greet you
 - [ ] Settings in Popup
 - [ ] Wallpaper Support
 
-**Materials Used** - [Chrome Dev API](https://developer.chrome.com) and [Grayshift](https://grayshift.io).
+**Materials Used** - [Chrome Dev API](https://developer.chrome.com), [Grayshift](https://grayshift.io) and [jQuery](https://jquery.com).
