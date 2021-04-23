@@ -1,4 +1,4 @@
-<p align="center"><img src="assets/logo.png" height="60px" alt="Logo"/></p>
+<p align="center"><img src="assets/logo128.png" height="60px" alt="Logo"/></p>
 
 <h1 align="center"> Flowtab </h1>
 <h3 align="center"> A beautiful and elegant new tab for your browser. </h3>
@@ -15,5 +15,6 @@ See the time and date, top sites, and use light theme or dark theme to greet you
 ## To Do List
 - [ ] Settings in Popup
 - [ ] Wallpaper Support
+- [ ] More Default Themes
 
 **Materials Used** - [Chrome Dev API](https://developer.chrome.com), [Grayshift](https://grayshift.io) and [jQuery](https://jquery.com).
