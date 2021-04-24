@@ -1,5 +1,5 @@
 {
-    "name": "TabFlow",
+    "name": "FlowTab",
     "description": "A beautiful and elegant new tab for your browser.",
     "version": "1.0",
     "manifest_version": 3,
@@ -7,9 +7,9 @@
         "newtab": "pages/dashboard.html"
     },
     "action": {
-        "default_popup": "pages/redirect.html"
+        "default_popup": "pages/settings_popup.html"
     },
-    "icons": { "16": "assets/logo.png", "48": "assets/logo.png", "128": "assets/logo.png" },
+    "icons": { "16": "assets/logo16.png", "48": "assets/logo48.png", "128": "assets/logo128.png" },
     "background": {
         "service_worker": "background.js"
     },

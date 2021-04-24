@@ -21,9 +21,12 @@ $(document).ready(() => {
     $("#themeForm").submit(function(e) {
         e.preventDefault();
         user.theme = $(this).serializeArray()[0].value;
-        
-        let userdata = JSON.stringify(user);
-        chrome.storage.local.set({"user": userdata}, function() {
+    
+        chrome.storage.local.set({"theme": user.theme}, function() {
+            console.log(user);
+        });
+
+        chrome.storage.local.set({"name": user.name}, function() {
             console.log(user);
         });
     });

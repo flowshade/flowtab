@@ -1,7 +1,10 @@
 $(document).ready(function() {
-    chrome.storage.local.get(["user"], function(data) {
-        document.documentElement.setAttribute("data-theme", JSON.parse(data.user).theme);
-        $("#greeting").html(`Good Day, ${JSON.parse(data.user).name}`)
+    chrome.storage.local.get(["theme"], function(data) {
+        document.documentElement.setAttribute("data-theme", data.theme);
+    });
+
+    chrome.storage.local.get(["name"], function(data) {
+        $("#greeting").html(`Good Day, ${data.name}`)
     });
 
     const formTime = (date) => {
