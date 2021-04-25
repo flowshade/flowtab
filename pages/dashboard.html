@@ -6,13 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="../lib/grayshift/grayshift.css" />
         <link rel="stylesheet" href="../css/dashboard.css" />
+        <script src="../js/utils.js" defer></script>
         <script src="../lib/jquery/jquery.js"></script>
         <script src="../js/dashboard.js"></script>
         <title>New Tab</title>
     </head>
     <body class="h-100">
         <section id="more-absolutely-insane">
-            <p id="greeting"></p>
+            <p id="greeting" class="d-block"></p>
         </section>
         <section id="absolutely-insane">
             <h5 id="todaysdate"></h5>
@@ -20,25 +21,36 @@
         </section>
         <section class="d-flex h-100 align-items-center justify-content-center">
             <section class="d-block">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search" />
-                    <div class="input-group-item">
-                        <button class="btn p-0" id="search_trigger">
-                            <svg
-                                class="gi gi-search fs-3"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
+                <form id="searcher" class="m-0 p-0">
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            type="search"
+                            name="q"
+                            placeholder="Search"
+                        />
+                        <div class="input-group-item">
+                            <button
+                                class="btn p-0"
+                                id="search_trigger"
+                                type="submit"
                             >
-                                <path
-                                    d="M11 3a8 8 0 0 1 8 8c0 1.848-.627 3.55-1.68 4.905l3.386 3.388a1 1 0 0 1-1.32 1.497l-.094-.083-3.388-3.386C14.55 18.373 12.848 19 11 19a8 8 0 1 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 1 0 0-12z"
-                                ></path>
-                            </svg>
-                        </button>
+                                <svg
+                                    class="gi gi-search fs-3"
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M11 3a8 8 0 0 1 8 8c0 1.848-.627 3.55-1.68 4.905l3.386 3.388a1 1 0 0 1-1.32 1.497l-.094-.083-3.388-3.386C14.55 18.373 12.848 19 11 19a8 8 0 1 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 1 0 0-12z"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="row mt-4" id="topSites"></div>
             </section>
         </section>

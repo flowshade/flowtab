@@ -1,4 +1,11 @@
-let user = {};
+const setup = (form) => {
+    $(`#${form}Form`).submit(function(e) {
+        e.preventDefault();
+        let value = $(this).serializeArray()[0].value;
+
+        setStorage(form, value);
+    });
+}
 
 $(document).ready(() => {
     const progress = new Progress(".progress");
@@ -13,29 +20,18 @@ $(document).ready(() => {
         progress.next();
     });
 
-    $("#nameForm").submit(function(e) {
-        e.preventDefault();
-        user.name = $(this).serializeArray()[0].value;
-    });
-
-    $("#themeForm").submit(function(e) {
-        e.preventDefault();
-        user.theme = $(this).serializeArray()[0].value;
+    setup("name");setup("theme");setup("engine");
     
-        chrome.storage.local.set({"theme": user.theme}, function() {
-            console.log(user);
-        });
-
-        chrome.storage.local.set({"name": user.name}, function() {
-            console.log(user);
-        });
-    });
+    // Defaults
+    setStorage("format", "12");
+    setStorage("showGreeting", true);
+    setStorage("showDate", true);
 
     $("#themeSelect").change(function(e) {
         if ($(this).val() === "dark") {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            setTheme("dark");
         } else {
-            document.documentElement.setAttribute('data-theme', 'light');
+            setTheme("light");
         }
     })
 

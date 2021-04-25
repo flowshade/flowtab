@@ -1,27 +1,31 @@
-let themeSwitch = document.getElementById("theme");
-let timeSwitch = document.getElementById("time");
+let change = (id, key, value1, value2) => {
+    $(id).change((e)=> { 
+        if($(id).is(':checked')){
+            setStorage(key, value1);
+        } else {
+            setStorage(key, value2);
+        }
+        chrome.tabs.create({ active: true, url: "chrome://newtab" });
+    })
+}
 
-// themeSwitch.addEventListener("change", (e) => {
-//     console.log(e);
-// })
+let setSwitch = (id, key, data) => {
+    getStorage(key, value => {
+        if (value == data) $(id).prop("checked", true);
+        else $(id).prop("checked", false);
+    })
+}
 
-chrome.storage.local.get(["theme"], function(data) {
-    let theme = data.theme;
-    console.log(theme)
-    theme == "dark" ? themeSwitch.setAttribute("checked", "true") : themeSwitch.setAttribute("checked", "false")
-    document.documentElement.setAttribute("data-theme", theme);
-});
+$(document).ready(() => {
+    getStorage("theme", data => setTheme(data));
 
-themeSwitch.addEventListener("change", (e) => {
-    if (themeSwitch.getAttribute("checked") == "true") {
-        themeSwitch.setAttribute("checked", "false");
-        chrome.storage.local.set({"theme": "light"}, () => {
-            document.documentElement.setAttribute("data-theme", "light");
-        })
-    } else {
-        themeSwitch.setAttribute("checked", "true");
-        chrome.storage.local.set({"theme": "dark"}, () => {
-            document.documentElement.setAttribute("data-theme", "dark");
-        })
-    }
+    setSwitch("#theme", "theme", "dark");
+    setSwitch("#time", "format", "24");
+    setSwitch("#date", "showDate", true)
+    setSwitch("#greeting", "showGreeting", true)
+
+    change("#theme", "theme", "dark", "light");
+    change("#time", "format", "24", "12");
+    change("#date", "showDate", true, false);
+    change("#greeting", "showGreeting", true, false);
 })
