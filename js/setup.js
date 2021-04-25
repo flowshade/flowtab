@@ -26,6 +26,7 @@ $(document).ready(() => {
     setStorage("format", "12");
     setStorage("showGreeting", true);
     setStorage("showDate", true);
+    setStorage("customLinks", false);
 
     $("#themeSelect").change(function(e) {
         if ($(this).val() === "dark") {

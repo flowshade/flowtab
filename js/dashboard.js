@@ -25,12 +25,20 @@ $(document).ready(function() {
     }
 
     getStorage("theme", data => document.documentElement.setAttribute("data-theme", data));
-    getStorage("name", data => $("#greeting").html(`Have a great day${data ? ", " + data : ""}!`));
+    
     getStorage("engine", data => $("#searcher").attr("action", urls[data]));
 
-    chrome.topSites.get(data => {
-        for (let i = 0; i < 4; i++)
-        $("#topSites").append(`<div class="col-md"><div class="card py-3"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?sz=16&domain_url=${data[i].url}"/></a></div></div>`)
+    getStorage("customLinks", cl => {
+        if (!cl) {
+            chrome.topSites.get(data => {
+                for (let i = 0; i < 4; i++)
+                $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?sz=16&domain_url=${data[i].url}"/></a></div></div>`)
+            })
+        } else {
+            getStorage("customLinksList", data => {
+                console.log(data)
+            })
+        }
     })
 
     let date = formDate(new Date())
@@ -60,4 +68,14 @@ $(document).ready(function() {
             $("#greeting").removeClass("d-none");
         }
     })
+
+    let greetTime = new Date();
+    getStorage("name", data => {
+        if (greetTime.getHours() < 17) {
+            $("#greeting").html(`Have a great day${data ? ", " + data : ""}!`);
+        } else {
+            $("#greeting").html(`Good Evening${data ? ", " + data : ""}.`)
+        }
+        
+    });
 })

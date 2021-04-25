@@ -23,9 +23,15 @@ $(document).ready(() => {
     setSwitch("#time", "format", "24");
     setSwitch("#date", "showDate", true)
     setSwitch("#greeting", "showGreeting", true)
+    setSwitch("#custom", "customLinks", false)
 
     change("#theme", "theme", "dark", "light");
     change("#time", "format", "24", "12");
     change("#date", "showDate", true, false);
     change("#greeting", "showGreeting", true, false);
+    change("#custom", "customLinks", true, false);
+
+    $("#more").click(() => {
+        chrome.tabs.create({ active: true, url: "/pages/settings.html" });
+    })
 })
