@@ -7,7 +7,7 @@
         "newtab": "pages/dashboard.html"
     },
     "action": {
-        "default_popup": "pages/settings_popup.html"
+        "default_popup": "pages/newtabsettings.html"
     },
     "icons": { "16": "assets/logo16.png", "48": "assets/logo48.png", "128": "assets/logo128.png" },
     "background": {

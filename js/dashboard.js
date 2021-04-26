@@ -36,7 +36,12 @@ $(document).ready(function() {
             })
         } else {
             getStorage("customLinksList", data => {
-                console.log(data)
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].trim() !== "") {
+                        $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?sz=16&domain_url=${data[i]}"/></a></div></div>`)
+                    } 
+                }
+                
             })
         }
     })

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../lib/grayshift/grayshift.css" />
+    <script src="../js/utils.js" defer></script>
+    <script src="../lib/jquery/jquery.js" defer></script>
+    <script src="../js/settings.js" defer></script>
+    <!-- <script src="../js/redirect.js" defer></script> -->
+</head>
+<body>
+    <main class="p-5">
+        <h2 class="my-5 text-center">User Settings</h2>
+        <div class="row">
+            <div class="col-5 mt-5">
+                <p class="text-right">Default Search Engine</p>
+            </div>
+            <div class="col-5 mt-5">
+                <select class="form-control" aria-label="Browser Chooser" name="browser" id="browserSelect">
+                    <option value="google">Google</option>
+                    <option value="bing">Bing</option>
+                    <option value="duckduckgo">DuckDuckGo</option>
+                </select>
+            </div>
+            <div class="col-5 mt-5">
+                <p class="text-right">Your Name</p>
+            </div>
+            <div class="col-5 mt-5">
+                <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Your Name.." spellcheck="false" data-ms-editor="true" id="settings-name">
+            </div>
+            <div class="col-5 mt-5">
+                <p class="text-right">Use Custom Links For Hotbar</p>
+            </div>
+            <div class="col-5 my-5">
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" id="custom" type="checkbox">
+                </div>
+            </div>
+            <div class="col-5">
+                <p class="text-right mt-2">Edit Custom Links</p>
+            </div>
+            <div class="col-5">
+                <input class="form-control mt-2" type="text" id="url1" placeholder="URL 1">
+                <input class="form-control mt-4" type="text" id="url2" placeholder="URL 2">
+                <input class="form-control mt-4" type="text" id="url3" placeholder="URL 3">
+                <input class="form-control mt-4" type="text" id="url4" placeholder="URL 4">
+            </div>
+        </div>
+        <p class="text-center mt-5">
+            <button class="btn btn-primary" id="user-settings-done">Done!</button>
+        </p>
+    </main>
+</body>
+</html>
