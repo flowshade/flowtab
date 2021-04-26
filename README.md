@@ -12,9 +12,4 @@
 See the time and date, top sites, and use light theme or dark theme to greet you when you open your browser.
 </p>
 
-## To Do List
-- [ ] Settings in Popup
-- [ ] Wallpaper Support
-- [ ] More Default Themes
-
 **Materials Used** - [Chrome Dev API](https://developer.chrome.com), [Grayshift](https://grayshift.io) and [jQuery](https://jquery.com).
