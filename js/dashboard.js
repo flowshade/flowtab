@@ -46,6 +46,16 @@ $(document).ready(function() {
         }
     })
 
+    getStorage("customWallpaper", cw => {
+        if (!cw) {
+            $("body").css("background-image", "");
+        } else {
+            getStorage("customWallpaperImage", data => {
+                $("body").css("background-image", `url(${data})`);
+            });
+        }
+    })
+
     let date = formDate(new Date())
     $("#todaysdate").html(`<span class="text-primary">${date[0]}</span><span class="text-secondary">/${date[1]}</span>`);
 

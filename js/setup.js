@@ -27,6 +27,7 @@ $(document).ready(() => {
     setStorage("showGreeting", true);
     setStorage("showDate", true);
     setStorage("customLinks", false);
+    setStorage("customWallpaper", false);
 
     $("#themeSelect").change(function(e) {
         if ($(this).val() === "dark") {

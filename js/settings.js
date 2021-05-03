@@ -40,17 +40,23 @@ $(document).ready(() => {
         $("#browserSelect").val(data)
     })
 
+    getStorage("customWallpaperImage", data => {
+        $("#customWallpaper").val(data);
+    })
+
     setSwitch("#theme", "theme", "dark");
     setSwitch("#time", "format", "24");
     setSwitch("#date", "showDate", true)
     setSwitch("#greeting", "showGreeting", true)
     setSwitch("#custom", "customLinks", true);
+    setSwitch("#customWall", "customWallpaper", true);
 
     change("#theme", "theme", "dark", "light");
     change("#time", "format", "24", "12");
     change("#date", "showDate", true, false);
     change("#greeting", "showGreeting", true, false);
     change("#custom", "customLinks", true, false, false);
+    change("#customWall", "customWallpaper", true, false, false);
 
     $("#moresettings").click(() => {
         chrome.tabs.create({ active: true, url: "/pages/usersettings.html" });
@@ -60,6 +66,7 @@ $(document).ready(() => {
         setStorage("customLinksList", [$("#url1").val(), $("#url2").val(), $("#url3").val(), $("#url4").val()])
         setStorage("name", $("#settings-name").val());
         setStorage("engine", $("#browserSelect").val());
+        setStorage("customWallpaperImage", $("#customWallpaper").val());
         chrome.tabs.create({ active: true, url: "chrome://newtab" });
         window.close();
     })
