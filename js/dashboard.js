@@ -24,21 +24,21 @@ $(document).ready(function() {
         "duckduckgo": "https://duckduckgo.com/"
     }
 
-    getStorage("theme", data => document.documentElement.setAttribute("data-theme", data));
+    getStorage("theme", data => setTheme(data)); // Set the theme
     
-    getStorage("engine", data => $("#searcher").attr("action", urls[data]));
+    getStorage("engine", data => $("#searcher").attr("action", urls[data])); // Set engine
 
     getStorage("customLinks", cl => {
-        if (!cl) {
+        if (!cl) { // If no custom links
             chrome.topSites.get(data => {
                 for (let i = 0; i < 4; i++)
-                $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?sz=16&domain_url=${data[i].url}"/></a></div></div>`)
+                $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?domain=${data[i].url}"/></a></div></div>`)
             })
-        } else {
+        } else { // If custom links
             getStorage("customLinksList", data => {
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].trim() !== "") {
-                        $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?sz=16&domain_url=${data[i]}"/></a></div></div>`)
+                        $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?domain=${data[i]}"/></a></div></div>`)
                     } 
                 }
                 
@@ -46,10 +46,10 @@ $(document).ready(function() {
         }
     })
 
-    let date = formDate(new Date())
+    let date = formDate(new Date()) // Set Date
     $("#todaysdate").html(`<span class="text-primary">${date[0]}</span><span class="text-secondary">/${date[1]}</span>`);
 
-    getStorage("format", data => {
+    getStorage("format", data => { // Set Time
         let time = formTime(new Date(), data)
         $("#time").html(`<span class="text-primary">${time[0]}</span><span class="text-secondary">:${time[1]}</span><small class="text-primary">${time[2]}</small>`)
         setInterval(() => {
@@ -58,6 +58,7 @@ $(document).ready(function() {
         }, 600)
     })
 
+    // Personalizations
     getStorage("showDate", data => {
         if (!data) {
             $("#todaysdate").addClass("d-none");
@@ -74,6 +75,7 @@ $(document).ready(function() {
         }
     })
 
+    // D
     let greetTime = new Date();
     getStorage("name", data => {
         if (greetTime.getHours() < 17) {
