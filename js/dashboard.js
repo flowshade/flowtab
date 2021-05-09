@@ -3,9 +3,9 @@ const formTime = (date, format) => {
         minutes = date.getMinutes(),
         ampm = "";
         if (format !== "24") {
+            ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
             hours = hours ? hours : 12;
-            ampm = hours >= 12 ? 'PM' : 'AM';
         }
     minutes = minutes < 10 ? '0'+ minutes : minutes;
     return [hours, minutes, ampm];
