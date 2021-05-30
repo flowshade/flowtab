@@ -11,7 +11,7 @@ body {
     bottom: 2rem;
 }
 
-#absolutely-insane #time {
+#absolutely-insane #todaystime {
     font-size: 80px;
 }
 
@@ -19,4 +19,32 @@ body {
     position: absolute;
     right: 2rem;
     bottom: 2rem;
+}
+
+#amazing {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

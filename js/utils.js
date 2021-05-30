@@ -1,9 +1,9 @@
 const setStorage = (key, value) => {
-    chrome.storage.sync.set({[key]: value})
+    chrome.storage.local.set({[key]: value})
 }
 
 const getStorage = (key, callback) => {
-    chrome.storage.sync.get([key], (data) => {
+    chrome.storage.local.get([key], (data) => {
         callback(data[key])
     })
 }

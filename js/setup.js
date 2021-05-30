@@ -28,13 +28,14 @@ $(document).ready(() => {
     setStorage("showDate", true);
     setStorage("customLinks", false);
     setStorage("customWallpaper", false);
+    setStorage("customTheme", false);
 
-    $("#themeSelect").change(function(e) {
-        if ($(this).val() === "dark") {
-            setTheme("dark");
-        } else {
-            setTheme("light");
-        }
-    })
+    // $("#themeSelect").change(function(e) {
+    //     if ($(this).val() === "dark") {
+    //         setTheme("dark");
+    //     } else {
+    //         setTheme("light");
+    //     }
+    // })
 
 });

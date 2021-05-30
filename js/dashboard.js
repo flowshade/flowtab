@@ -24,8 +24,18 @@ $(document).ready(function() {
         "duckduckgo": "https://duckduckgo.com/"
     }
 
-    getStorage("theme", data => setTheme(data)); // Set the theme
-    
+    // Custom Theme
+    getStorage("customTheme", ct => {
+        if (ct) {
+            getStorage("customThemeColors", data => {
+                document.documentElement.style.setProperty('--body-color', data[0]);
+                document.documentElement.style.setProperty('--body-bg', data[1]);
+            })
+        } else {
+            getStorage("theme", data => setTheme(data));
+        }
+    });
+
     getStorage("engine", data => $("#searcher").attr("action", urls[data])); // Set engine
 
     getStorage("customLinks", cl => {
@@ -61,10 +71,10 @@ $(document).ready(function() {
 
     getStorage("format", data => { // Set Time
         let time = formTime(new Date(), data)
-        $("#time").html(`<span class="text-primary">${time[0]}</span><span class="text-secondary">:${time[1]}</span><small class="text-primary">${time[2]}</small>`)
+        $("#todaystime").html(`<span class="text-primary">${time[0]}</span><span class="text-secondary">:${time[1]}</span><small class="text-primary">${time[2]}</small>`)
         setInterval(() => {
             time = formTime(new Date(), data)
-            $("#time").html(`<span class="text-primary">${time[0]}</span><span class="text-secondary">:${time[1]}</span><small class="text-primary">${time[2]}</small>`)
+            $("#todaystime").html(`<span class="text-primary">${time[0]}</span><span class="text-secondary">:${time[1]}</span><small class="text-primary">${time[2]}</small>`)
         }, 600)
     })
 
@@ -79,9 +89,9 @@ $(document).ready(function() {
 
     getStorage("showGreeting", data => {
         if (!data) {
-            $("#greeting").addClass("d-none");
+            $("#d-greeting").addClass("d-none");
         } else {
-            $("#greeting").removeClass("d-none");
+            $("#d-greeting").removeClass("d-none");
         }
     })
 
@@ -89,9 +99,9 @@ $(document).ready(function() {
     let greetTime = new Date();
     getStorage("name", data => {
         if (greetTime.getHours() < 17) {
-            $("#greeting").html(`Have a great day${data ? ", " + data : ""}!`);
+            $("#d-greeting").html(`Have a great day${data ? ", " + data : ""}!`);
         } else {
-            $("#greeting").html(`Good Evening${data ? ", " + data : ""}.`)
+            $("#d-greeting").html(`Good Evening${data ? ", " + data : ""}.`)
         }
         
     });

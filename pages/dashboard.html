@@ -1,58 +1,142 @@
 <!DOCTYPE html>
 <html lang="en" class="h-100">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="../lib/grayshift/grayshift.css" />
-        <link rel="stylesheet" href="../css/dashboard.css" />
-        <script src="../js/utils.js" defer></script>
-        <script src="../lib/jquery/jquery.js"></script>
-        <script src="../js/dashboard.js"></script>
-        <title>New Tab</title>
-    </head>
-    <body class="h-100">
-        <section id="more-absolutely-insane">
-            <p id="greeting" class="d-block"></p>
-        </section>
-        <section id="absolutely-insane">
-            <h5 id="todaysdate"></h5>
-            <h1 id="time"></h1>
-        </section>
-        <section class="d-flex h-100 align-items-center justify-content-center">
-            <section class="d-block">
-                <form id="searcher" class="m-0 p-0">
-                    <div class="input-group">
-                        <input
-                            class="form-control"
-                            type="search"
-                            name="q"
-                            placeholder="Search"
-                        />
-                        <div class="input-group-item">
-                            <button
-                                class="btn p-0"
-                                id="search_trigger"
-                                type="submit"
-                            >
-                                <svg
-                                    class="gi gi-search fs-3"
-                                    width="1em"
-                                    height="1em"
-                                    viewBox="0 0 24 24"
-                                    fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M11 3a8 8 0 0 1 8 8c0 1.848-.627 3.55-1.68 4.905l3.386 3.388a1 1 0 0 1-1.32 1.497l-.094-.083-3.388-3.386C14.55 18.373 12.848 19 11 19a8 8 0 1 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 1 0 0-12z"
-                                    ></path>
-                                </svg>
-                            </button>
-                        </div>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../lib/grayshift/grayshift.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <script src="../js/utils.js" defer></script>
+    <script src="../lib/jquery/jquery.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/v2/settings.js"></script>
+    <title>New Tab</title>
+</head>
+
+<body class="h-100">
+    <div class="modal fade" id="settingsModal" tabindex="-1"
+        aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="fs-2" id="settingsModalLabel">Settings</h1>
+                    <button
+                        class="btn btn-auto d-inline-flex flex-shrink-0 align-items-center justify-content-center p-0 rounded-circle"
+                        data-gs-dismiss="modal" style="width: 2.5rem; height: 2.5rem;" type="button" aria-label="Close">
+                        <svg class="gi gi-x fs-3" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M7.613 6.2l.094.083L12 10.585l4.293-4.292.094-.083a1 1 0 0 1 1.403 1.403l-.083.094L13.415 12l4.292 4.293a1 1 0 0 1-1.32 1.497l-.094-.083L12 13.415l-4.293 4.292-.094.083a1 1 0 0 1-1.403-1.403l.083-.094L10.585 12 6.293 7.707a1 1 0 0 1 1.32-1.497z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label class="form-label text-left">Appearance</label>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="theme" type="checkbox">
+                        <label class="form-check-label text-left" for="theme">Dark Mode</label>
                     </div>
-                </form>
-                <div class="row mt-4" id="topSites"></div>
-            </section>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="customTheme" type="checkbox">
+                        <label class="form-check-label text-left" for="customTheme">Use A Custom Theme <span class="text-warning">(BETA)</span></label>
+                    </div>
+                    <div class="mb-3" id="colorSelection">
+                        <p class="mb-3">Primary Color: <input type="color" id="primary-color"></p>
+                        <p>Secondary Color: <input type="color" id="secondary-color"></p>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="time" type="checkbox">
+                        <label class="form-check-label text-left" for="time">24 Hour Time Format</label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="date" type="checkbox">
+                        <label class="form-check-label text-left" for="date">Show Date</label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="greeting" type="checkbox">
+                        <label class="form-check-label text-left" for="greeting">Show Greeting</label>
+                    </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="customWall" type="checkbox">
+                        <label class="form-check-label text-left" for="customWall">Use Custom Wallpaper</label>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mt-2" type="text" id="customWallpaper" placeholder="Paste Link Here">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-left" for="browserSelect">Browser</label>
+                        <select class="form-control" aria-label="Browser Chooser" name="browser" id="browserSelect">
+                            <option value="google">Google</option>
+                            <option value="bing">Bing</option>
+                            <option value="duckduckgo">DuckDuckGo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-left" for="settings-name">Name</label>
+                        <input class="form-control" type="text" name="name" autocomplete="off" placeholder="Your Name.."
+                            spellcheck="false" data-ms-editor="true" id="settings-name">
+                    </div>
+                    <label class="form-label text-left">Hotbar</label>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" id="custom" type="checkbox">
+                        <label class="form-check-label text-left" for="custom">Use Custom Links for Hotbar</label>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control" type="text" id="url1" placeholder="URL 1">
+                        <input class="form-control mt-2" type="text" id="url2" placeholder="URL 2">
+                        <input class="form-control mt-2" type="text" id="url3" placeholder="URL 3">
+                        <input class="form-control mt-2" type="text" id="url4" placeholder="URL 4">
+                    </div>
+                    <div class="mb-3">
+                        <p class="text-primary text-center">FlowShade</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-lg btn-primary w-100" type="button" id="settingsModalSave">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="amazing">
+        <button data-gs-toggle="modal" data-gs-target="#settingsModal" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-gear"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
+                <path
+                    d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
+            </svg>
+        </button>
+    </section>
+    <section id="more-absolutely-insane">
+        <p id="d-greeting" class="d-block"></p>
+    </section>
+    <section id="absolutely-insane">
+        <h5 id="todaysdate"></h5>
+        <h1 id="todaystime"></h1>
+    </section>
+    <section class="d-flex h-100 align-items-center justify-content-center">
+        <section class="d-block">
+            <form id="searcher" class="m-0 p-0">
+                <div class="input-group">
+                    <input class="form-control" type="search" name="q" placeholder="Search" />
+                    <div class="input-group-item">
+                        <button class="btn p-0" id="search_trigger" type="submit">
+                            <svg class="gi gi-search fs-3" width="1em" height="1em" viewBox="0 0 24 24"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11 3a8 8 0 0 1 8 8c0 1.848-.627 3.55-1.68 4.905l3.386 3.388a1 1 0 0 1-1.32 1.497l-.094-.083-3.388-3.386C14.55 18.373 12.848 19 11 19a8 8 0 1 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 1 0 0-12z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <div class="row mt-4" id="topSites"></div>
         </section>
-    </body>
+    </section>
+    <script src="../lib/grayshift/grayshift.min.js"></script>
+</body>
+
 </html>
