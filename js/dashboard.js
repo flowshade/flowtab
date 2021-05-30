@@ -17,6 +17,10 @@ const formDate = (date) => {
     return [month, day];
 }
 
+function adjust(color, amount) {
+    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
+}
+
 $(document).ready(function() {
     let urls = {
         "google": "https://google.com/search",
@@ -28,8 +32,12 @@ $(document).ready(function() {
     getStorage("customTheme", ct => {
         if (ct) {
             getStorage("customThemeColors", data => {
+                let darkerbg = adjust(data[1], -10);
                 document.documentElement.style.setProperty('--body-color', data[0]);
-                document.documentElement.style.setProperty('--body-bg', data[1]);
+                document.documentElement.style.setProperty('--headings-color', data[0]);
+                document.documentElement.style.setProperty('--body-bg', darkerbg);
+                document.documentElement.style.setProperty('--card-bg', data[1]);
+                document.documentElement.style.setProperty('--primary', data[1]);
             })
         } else {
             getStorage("theme", data => setTheme(data));
