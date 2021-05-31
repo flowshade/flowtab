@@ -1,6 +1,6 @@
 {
     "name": "FlowTab",
-    "description": "A beautiful and elegant new tab for your browser.",
+    "description": "A beautiful, elegant, and minimalist new tab for your browser.",
     "version": "1.0",
     "manifest_version": 3,
     "chrome_url_overrides": {

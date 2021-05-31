@@ -32,7 +32,7 @@ $(document).ready(function() {
     getStorage("customTheme", ct => {
         if (ct) {
             getStorage("customThemeColors", data => {
-                let darkerbg = adjust(data[1], -10);
+                let darkerbg = adjust(data[1], -35);
                 document.documentElement.style.setProperty('--body-color', data[0]);
                 document.documentElement.style.setProperty('--headings-color', data[0]);
                 document.documentElement.style.setProperty('--body-bg', darkerbg);
