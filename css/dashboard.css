@@ -48,3 +48,27 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.input-group-item {
+    cursor: pointer;
+}
+
+#topSites::-webkit-scrollbar {
+    height: 5px;
+}
+
+#topSites::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+}
+
+#topSites div:first-child {
+    margin-right: 10px;
+}
+
+#topSites div:last-child {
+    margin-left: 10px;
+}
+
+#topSites div:not(:first-child):not(:last-child) {
+    margin: 0 10px;
+}

@@ -17,11 +17,21 @@ const formDate = (date) => {
     return [month, day];
 }
 
-function adjust(color, amount) {
-    return '#' + color.replace(/^#/, '').replace(/../g, color => ('0'+Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(16)).substr(-2));
-}
-
 $(document).ready(function() {
+    // Add More Links
+    $("#addMoreLinks").click(() => {
+        $("#customLinks").append(`
+        <div class="input-group mt-2">
+            <input class="form-control" type="text" placeholder="Link">
+            <div class="input-group-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </div>
+        </div>`)
+    })
+
+    // urls
     let urls = {
         "google": "https://google.com/search",
         "bing": "https://bing.com/search",
@@ -29,35 +39,45 @@ $(document).ready(function() {
     }
 
     // Custom Theme
-    getStorage("customTheme", ct => {
+    getStorage("customColor", ct => {
         if (ct) {
-            getStorage("customThemeColors", data => {
-                let darkerbg = adjust(data[1], -35);
-                document.documentElement.style.setProperty('--body-color', data[0]);
-                document.documentElement.style.setProperty('--headings-color', data[0]);
-                document.documentElement.style.setProperty('--body-bg', darkerbg);
-                document.documentElement.style.setProperty('--card-bg', data[1]);
-                document.documentElement.style.setProperty('--primary', data[1]);
+            getStorage("customColorValue", data => {
+                document.documentElement.style.setProperty('--primary', data);
             })
-        } else {
-            getStorage("theme", data => setTheme(data));
         }
     });
+
+    getStorage("theme", data => setTheme(data));
 
     getStorage("engine", data => $("#searcher").attr("action", urls[data])); // Set engine
 
     getStorage("customLinks", cl => {
         if (!cl) { // If no custom links
+            $("#topSites").removeAttr("style")
             chrome.topSites.get(data => {
                 for (let i = 0; i < 4; i++)
-                $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?domain=${data[i].url}"/></a></div></div>`)
+                $("#topSites").append(`<div class="card py-3 d-inline-block"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?sz=64&domain_url=${data[i].url}" width="16" height="16" /></a></div>`)
             })
         } else { // If custom links
             getStorage("customLinksList", data => {
+                dataFull = 0;
+                data.map(l => {if (l != "") dataFull += 1});
+
+                if (data.length > 4 && dataFull > 4) {
+                    $("#topSites").css({
+                        "white-space": "nowrap",
+                        "width": "416px",
+                        "overflow-y": "hidden",
+                        "box-sizing": "content-box"
+                    })
+                }
                 for (let i = 0; i < data.length; i++) {
+                    if (!data[i].startsWith("https://") || !data[i].startsWith("http://")) {
+                        data[i] = "https://" + data[i]; 
+                    }
                     if (data[i].trim() !== "") {
-                        $("#topSites").append(`<div class="col"><div class="card py-3"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?domain=${data[i]}"/></a></div></div>`)
-                    } 
+                        $("#topSites").append(`<div class="card py-3 d-inline-block"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?sz=64&domain_url=${data[i]}" width="16" height="16"/></a></div>`)
+                    }
                 }
                 
             })
@@ -67,7 +87,13 @@ $(document).ready(function() {
     getStorage("customWallpaper", cw => {
         if (!cw) {
             $("body").css("background-image", "");
+            document.documentElement.style.setProperty('--secondary', "var(--gray)");
         } else {
+            getStorage("theme", data => {
+                if (data == "light") {
+                    document.documentElement.style.setProperty('--secondary', "var(--light-900)");
+                }
+            })
             getStorage("customWallpaperImage", data => {
                 $("body").css("background-image", `url(${data})`);
             });
@@ -113,4 +139,12 @@ $(document).ready(function() {
         }
         
     });
-})
+
+    $("#customLinks").on("click", "div.input-group-item", function(e) {
+        if (e.target.tagName == "svg") {
+            $(e.target).parent().parent().remove();
+        } else {
+            $(e.target).parent().remove();
+        }
+    })
+});

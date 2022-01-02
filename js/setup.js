@@ -28,7 +28,7 @@ $(document).ready(() => {
     setStorage("showDate", true);
     setStorage("customLinks", false);
     setStorage("customWallpaper", false);
-    setStorage("customTheme", false);
+    setStorage("customColor", false);
 
     // $("#themeSelect").change(function(e) {
     //     if ($(this).val() === "dark") {

@@ -21,8 +21,30 @@ $(document).ready(() => {
         console.log(data);
         if (Array.isArray(data)) {
             if (data.length !== 0) {
-                for (let i = 0; i <= 4; i++) {
-                    $(`#url${i + 1}`).val(data[i]);
+                console.log("hi")
+                $("#customLinks").html("")
+                for (let i in data) {
+                    if (i == 0) {
+                        $("#customLinks").append(`
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Link" value="${data[i]}">
+                            <div class="input-group-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </div>
+                        </div>`)
+                    } else {
+                        $("#customLinks").append(`
+                        <div class="input-group mt-2">
+                            <input class="form-control" type="text" placeholder="Link" value="${data[i]}">
+                            <div class="input-group-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </div>
+                        </div>`)
+                    }
                 }
             }
         }
@@ -40,12 +62,10 @@ $(document).ready(() => {
         $("#customWallpaper").val(data);
     })
 
-    getStorage("customTheme", data => {
+    getStorage("customColor", data => {
         if (data) {
-            $("#theme").attr("disabled", "disabled")
-            getStorage("customThemeColors", data => {
-                $("#primary-color").val(data[0]);
-                $("#secondary-color").val(data[1]);
+            getStorage("customColorValue", data => {
+                $("#primary-color").val(data);
             })
         } else {
             $("#colorSelection").css("display", "none");
@@ -59,7 +79,7 @@ $(document).ready(() => {
     setSwitch("#greeting", "showGreeting", true)
     setSwitch("#custom", "customLinks", true);
     setSwitch("#customWall", "customWallpaper", true);
-    setSwitch("#customTheme", "customTheme", true);
+    setSwitch("#customColor", "customColor", true);
 
     change("#theme", "theme", "dark", "light");
     change("#time", "format", "24", "12");
@@ -69,23 +89,25 @@ $(document).ready(() => {
     change("#customWall", "customWallpaper", true, false);
     
     // Extension of change function for custom themes
-    $("#customTheme").change((e)=> { 
-        console.log("bro")
-        if($("#customTheme").is(':checked')){
-            setStorage("customTheme", true);
-            $("#theme").attr("disabled", "disabled");
+    $("#customColor").change((e)=> { 
+        if($("#customColor").is(':checked')){
+            setStorage("customColor", true);
             $("#colorSelection").css("display", "block");
         } else {
-            setStorage("customTheme", false);
-            console.log("false");
-            $("#theme").removeAttr("disabled");
+            setStorage("customColor", false);
             $("#colorSelection").css("display", "none");
         }
     })
 
     $("#settingsModalSave").click(() => {
-        setStorage("customLinksList", [$("#url1").val(), $("#url2").val(), $("#url3").val(), $("#url4").val()]);
-        setStorage("customThemeColors", [$("#primary-color").val(), $("#secondary-color").val()]);
+        let customLinksArr = []
+        $("#customLinks").children().children().each((i, v)=>{
+            if ($(v).prop("tagName") == "INPUT") {
+                customLinksArr.push($(v).val());
+            }
+        })
+        setStorage("customLinksList", customLinksArr)
+        setStorage("customColorValue", $("#primary-color").val());
         setStorage("name", $("#settings-name").val());
         setStorage("engine", $("#browserSelect").val());
         setStorage("customWallpaperImage", $("#customWallpaper").val());
