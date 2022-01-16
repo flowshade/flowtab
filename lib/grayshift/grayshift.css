@@ -4285,6 +4285,9 @@ fieldset:disabled .btn {
 .text-primary {
 	color: var(--primary) !important
 }
+.text-gray {
+	color: var(--gray) !important
+}
 .text-secondary {
 	color: var(--secondary) !important
 }

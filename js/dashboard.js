@@ -70,7 +70,7 @@ $(document).ready(function() {
                     console.log(hostname)
                 $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i].url}">
                 <div class="text-center">
-                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="21" height="21" class="my-3" />
                 </div>
             </div>`)
                 }
@@ -96,7 +96,7 @@ $(document).ready(function() {
                         let hostname = new URL(data[i]).hostname
                         $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i]}">
                             <div class="text-center">
-                                <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                                <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="21" height="21" class="my-3" />
                             </div>
                         </div>`)
                     }
