@@ -17,6 +17,16 @@ const formDate = (date) => {
     return [month, day];
 }
 
+const isURL = str => {
+    let url;
+    try {
+        url = new URL(str);
+    } catch (_) {
+        return false;
+    }
+    return url.protocol === "https:" || url.protocol === "http:";
+}
+
 $(document).ready(function() {
     // Add More Links
     $("#addMoreLinks").click(() => {
@@ -55,8 +65,15 @@ $(document).ready(function() {
         if (!cl) { // If no custom links
             $("#topSites").removeAttr("style")
             chrome.topSites.get(data => {
-                for (let i = 0; i < 4; i++)
-                $("#topSites").append(`<div class="card py-3 d-inline-block"><a href="${data[i].url}"><img src="https://www.google.com/s2/favicons?sz=64&domain_url=${data[i].url}" width="16" height="16" /></a></div>`)
+                for (let i = 0; i < 4; i++) {
+                    let hostname = new URL(data[i].url).hostname
+                    console.log(hostname)
+                $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i].url}">
+                <div class="text-center">
+                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                </div>
+            </div>`)
+                }
             })
         } else { // If custom links
             getStorage("customLinksList", data => {
@@ -72,11 +89,16 @@ $(document).ready(function() {
                     })
                 }
                 for (let i = 0; i < data.length; i++) {
-                    if (!data[i].startsWith("https://") || !data[i].startsWith("http://")) {
-                        data[i] = "https://" + data[i]; 
+                    if (!isURL(data[i])) {
+                        data[i] = "https://" + data[i];
                     }
                     if (data[i].trim() !== "") {
-                        $("#topSites").append(`<div class="card py-3 d-inline-block"><a href="${data[i]}"><img src="https://www.google.com/s2/favicons?sz=64&domain_url=${data[i]}" width="16" height="16"/></a></div>`)
+                        let hostname = new URL(data[i]).hostname
+                        $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i]}">
+                            <div class="text-center">
+                                <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                            </div>
+                        </div>`)
                     }
                 }
                 
@@ -147,4 +169,21 @@ $(document).ready(function() {
             $(e.target).parent().remove();
         }
     })
+
+    $("#topSites").on("click", "div.bookmark", function () {
+        location.href = $(this).attr("href")
+    })
+
+    let scrollingItem = document.getElementById("topSites");
+
+    window.addEventListener("wheel", function (e) {
+        if (e.deltaX === 0) {
+            if (e.deltaY > 0) {
+                scrollingItem.scrollLeft += 25;
+            } else {
+                scrollingItem.scrollLeft -= 25;
+            }
+        }
+    });
+
 });

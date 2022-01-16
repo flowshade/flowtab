@@ -54,7 +54,7 @@ body {
 }
 
 #topSites::-webkit-scrollbar {
-    height: 5px;
+    display: none;
 }
 
 #topSites::-webkit-scrollbar-corner {
@@ -71,4 +71,16 @@ body {
 
 #topSites div:not(:first-child):not(:last-child) {
     margin: 0 10px;
+}
+
+.bookmark {
+    height: 56px;
+    width: 80px;
+    background-color: var(--card-bg);
+    cursor: pointer;
+    transition: background-color 500ms;
+}
+
+.bookmark:hover {
+    background-color: var(--fill-bg);
 }
