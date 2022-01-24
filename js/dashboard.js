@@ -146,20 +146,21 @@ $(document).ready(function() {
     getStorage("showGreeting", data => {
         if (!data) {
             $("#d-greeting").addClass("d-none");
+            
         } else {
             $("#d-greeting").removeClass("d-none");
         }
     })
 
+
     // D
     let greetTime = new Date();
     getStorage("name", data => {
         if (greetTime.getHours() < 17) {
-            $("#d-greeting").html(`Have a great day${data ? ", " + data : ""}!`);
+            $("#d-greeting").text(`Have a great day${data ? ", " + data : ""}!`);
         } else {
-            $("#d-greeting").html(`Good Evening${data ? ", " + data : ""}.`)
+            $("#d-greeting").text(`Good Evening${data ? ", " + data : ""}.`)
         }
-        
     });
 
     $("#customLinks").on("click", "div.input-group-item", function(e) {
