@@ -91,14 +91,14 @@ $(document).ready(function() {
                 for (let i = 0; i < data.length; i++) {
                     if (!isURL(data[i])) {
                         data[i] = "https://" + data[i];
-                    }
-                    if (data[i].trim() !== "") {
-                        let hostname = new URL(data[i]).hostname
-                        $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i]}">
-                            <div class="text-center">
-                                <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
-                            </div>
-                        </div>`)
+                        if (data[i].trim() !== "") {
+                            let hostname = new URL(data[i]).hostname
+                            $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i]}">
+                                <div class="text-center">
+                                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                                </div>
+                            </div>`)
+                        }
                     }
                 }
                 
