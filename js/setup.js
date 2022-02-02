@@ -29,6 +29,7 @@ $(document).ready(() => {
     setStorage("customLinks", false);
     setStorage("customWallpaper", false);
     setStorage("customColor", false);
+    setStorage("iconsize", "large")
 
     // $("#themeSelect").change(function(e) {
     //     if ($(this).val() === "dark") {

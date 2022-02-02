@@ -18,10 +18,8 @@ let setSwitch = (id, key, data) => {
 $(document).ready(() => {
     // Populate Custom URL Inputs
     getStorage("customLinksList", data => {
-        console.log(data);
         if (Array.isArray(data)) {
             if (data.length !== 0) {
-                console.log("hi")
                 $("#customLinks").html("")
                 for (let i in data) {
                     if (i == 0) {
@@ -56,6 +54,10 @@ $(document).ready(() => {
 
     getStorage("engine", data => {
         $("#browserSelect").val(data)
+    })
+
+    getStorage("iconsize", data => {
+        $("#iconsize").val(data)
     })
 
     getStorage("customWallpaperImage", data => {
@@ -110,6 +112,7 @@ $(document).ready(() => {
         setStorage("customColorValue", $("#primary-color").val());
         setStorage("name", $("#settings-name").val());
         setStorage("engine", $("#browserSelect").val());
+        setStorage("iconsize", $("#iconsize").val());
         setStorage("customWallpaperImage", $("#customWallpaper").val());
         chrome.tabs.create({ active: true, url: "chrome://newtab" });
         window.close();
