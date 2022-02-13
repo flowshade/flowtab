@@ -144,9 +144,9 @@ $(document).ready(function() {
     // Personalizations
     getStorage("showDate", data => {
         if (!data) {
-            $("#todaysdate").addClass("d-none");
+            $("#absolutely-insane").addClass("d-none");
         } else {
-            $("#todaysdate").removeClass("d-none");
+            $("#absolutely-insane").removeClass("d-none");
         }
     })
 
