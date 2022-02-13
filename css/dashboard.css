@@ -79,8 +79,26 @@ body {
     background-color: var(--card-bg);
     cursor: pointer;
     transition: background-color 500ms;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .bookmark:hover {
     background-color: var(--fill-bg);
+}
+
+.small-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.medium-icon {
+    width: 19px;
+    height: 19px;
+}
+
+.large-icon {
+    width: 22px;
+    height: 22px;
 }

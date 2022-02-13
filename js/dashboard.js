@@ -45,7 +45,9 @@ $(document).ready(function() {
     let urls = {
         "google": "https://google.com/search",
         "bing": "https://bing.com/search",
-        "duckduckgo": "https://duckduckgo.com/"
+        "duckduckgo": "https://duckduckgo.com/",
+        "ecosia": "https://ecosia.org/search",
+        "yahoo": "https://search.yahoo.com/search"
     }
 
     // Custom Theme
@@ -62,46 +64,51 @@ $(document).ready(function() {
     getStorage("engine", data => $("#searcher").attr("action", urls[data])); // Set engine
 
     getStorage("customLinks", cl => {
+        let iconsize = "";
         if (!cl) { // If no custom links
-            $("#topSites").removeAttr("style")
-            chrome.topSites.get(data => {
-                for (let i = 0; i < 4; i++) {
-                    let hostname = new URL(data[i].url).hostname
-                    console.log(hostname)
-                $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i].url}">
-                <div class="text-center">
-                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
-                </div>
-            </div>`)
-                }
+            getStorage("iconsize", size => {
+                iconsize = `${size}-icon`
+                $("#topSites").removeAttr("style")
+                chrome.topSites.get(data => {
+                    for (let i = 0; i < 4; i++) {
+                        let hostname = new URL(data[i].url).hostname
+                        $("#topSites").append(`<div class="bookmark rounded" href="${data[i].url}">
+                            <div class="text-center">
+                                <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" class="${iconsize}"/>
+                            </div>
+                        </div>`)
+                    }
+                })
             })
         } else { // If custom links
             getStorage("customLinksList", data => {
-                dataFull = 0;
-                data.map(l => {if (l != "") dataFull += 1});
+                getStorage("iconsize", size => {
+                    iconsize = `${size}-icon`;
+                    dataFull = 0;
+                    data.map(l => {if (l != "") dataFull += 1});
 
-                if (data.length > 4 && dataFull > 4) {
-                    $("#topSites").css({
-                        "white-space": "nowrap",
-                        "width": "416px",
-                        "overflow-y": "hidden",
-                        "box-sizing": "content-box"
-                    })
-                }
-                for (let i = 0; i < data.length; i++) {
-                    if (!isURL(data[i])) {
-                        data[i] = "https://" + data[i];
+                    if (data.length > 4 && dataFull > 4) {
+                        $("#topSites").css({
+                            "white-space": "nowrap",
+                            "width": "416px",
+                            "overflow-y": "hidden",
+                            "box-sizing": "content-box"
+                        })
+                    }
+                    for (let i = 0; i < data.length; i++) {
+                        if (!isURL(data[i])) {
+                            data[i] = "https://" + data[i];
+                        }
                         if (data[i].trim() !== "") {
                             let hostname = new URL(data[i]).hostname
-                            $("#topSites").append(`<div class="bookmark d-inline-block rounded" href="${data[i]}">
+                            $("#topSites").append(`<div class="bookmark rounded" href="${data[i]}">
                                 <div class="text-center">
-                                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" width="22" height="22" class="my-3" />
+                                    <img src="https://icons.duckduckgo.com/ip2/${hostname}.ico" class="${iconsize}"/>
                                 </div>
                             </div>`)
                         }
                     }
-                }
-                
+                })
             })
         }
     })
@@ -175,16 +182,14 @@ $(document).ready(function() {
         location.href = $(this).attr("href")
     })
 
-    let scrollingItem = document.getElementById("topSites");
-
+    let scrollingItem = $("#topSites")[0];
     window.addEventListener("wheel", function (e) {
         if (e.deltaX === 0) {
             if (e.deltaY > 0) {
-                scrollingItem.scrollLeft += 25;
+                scrollingItem.scrollLeft += 20;
             } else {
-                scrollingItem.scrollLeft -= 25;
+                scrollingItem.scrollLeft -= 20;
             }
         }
     });
-
 });
